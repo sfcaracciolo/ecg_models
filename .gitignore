@@ -1,0 +1,7 @@
+.python-version
+Lib/
+Scripts/
+__pycache__
+etc/
+share/
+pyvenv.cfg
