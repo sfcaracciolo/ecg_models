@@ -1,3 +1,4 @@
+# type: ignore
 from typing import TypedDict
 import numpy as np
 from .waves import *
@@ -8,7 +9,16 @@ class Waves(TypedDict):
     S: FunFeatures
     T: FunFeatures
 
-def f(θ, fe: BeatFeatures):
+    @classmethod
+    def template(cls):
+        return cls(
+            P=FunFeatures(a=0, μ=0, σ=0),
+            R=FunFeatures(a=0, μ=0, σ=0),
+            S=FunFeatures(a=0, μ=0, σ=0),
+            T=FunFeatures(a=0, μ=0, σ=0)
+        )
+
+def f(θ, fe: BeatFeatures) -> np.ndarray:
     return  g(v(θ, fe['Waves']['P']), fe['Waves']['P']) + \
             g(v(θ, fe['Waves']['R']), fe['Waves']['R']) + \
             g(v(θ, fe['Waves']['S']), fe['Waves']['S']) + \
@@ -22,10 +32,10 @@ def dfdt(p, ω, fe):
     
 example_beat = BeatFeatures(
         Waves=Waves(
-            P=FunFeatures(a=.2, μ=np.pi*2/3., σ=.15),
-            R=FunFeatures(a=1.2, μ=np.pi*1., σ=.1),
-            S=FunFeatures(a=-1.2, μ=np.pi*13/12., σ=.1),
-            T=FunFeatures(a=.4, μ=np.pi*16/12., σ=.4),
+            P=FunFeatures(a=.05, μ=np.pi*2/3., σ=.1),
+            R=FunFeatures(a=.6, μ=np.pi*1., σ=.08),
+            S=FunFeatures(a=-.3, μ=np.pi*13/12., σ=.06),
+            T=FunFeatures(a=.25, μ=np.pi*15/12., σ=.3),
         ),
-        RR=1.
+        RR=.22
 )

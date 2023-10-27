@@ -1,3 +1,4 @@
+# type: ignore
 from typing import TypedDict
 import numpy as np
 from .waves import *
@@ -9,6 +10,16 @@ class Waves(TypedDict):
     S: FunFeatures
     T: FunFeatures
 
+    @classmethod
+    def template(cls):
+        return cls(
+            P=FunFeatures(a=0, μ=0, σ=0),
+            Q=FunFeatures(a=0, μ=0, σ=0),
+            R=FunFeatures(a=0, μ=0, σ=0),
+            S=FunFeatures(a=0, μ=0, σ=0),
+            T=FunFeatures(a=0, μ=0, σ=0)
+        )
+    
 def f(θ, fe: BeatFeatures):
     return  g(v(θ, fe['Waves']['P']), fe['Waves']['P']) + \
             g(v(θ, fe['Waves']['Q']), fe['Waves']['Q']) + \
