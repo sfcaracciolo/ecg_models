@@ -17,6 +17,7 @@ class BeatFeatures(TypedDict):
     RR: float
     
 def v(θ, fe: FunFeatures):
+    if fe['σ'] == 0.: raise ValueError('σ can not be zero.')
     return ( θ % (2*np.pi) - fe['μ'] ) / fe['σ']
 
 def g(v, fe: FunFeatures):
